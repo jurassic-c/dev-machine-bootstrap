@@ -1,0 +1,15 @@
+---
+- hosts: local
+  sudo: true
+  user: "{{user}}"
+  tasks:
+  - name: Ensure packages are installed
+    apt: pkg={{item}} state=latest
+    with_items:
+    - git
+    - subversion
+    - nodejs
+    - npm
+
+  - name: Ensure bash.rc is in place
+    template: src=templates/bash.rc dest=/home/{{user}}/.bashrc
